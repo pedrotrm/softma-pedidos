@@ -1,13 +1,19 @@
 package com.softma.pedidos.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
 
-
-    private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private String email;
     private String telefone;
@@ -16,7 +22,7 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
-    public Usuario(Integer id, String name, String email, String telefone, String senha) {
+    public Usuario(Long id, String name, String email, String telefone, String senha) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -24,11 +30,11 @@ public class Usuario implements Serializable {
         this.senha = senha;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
