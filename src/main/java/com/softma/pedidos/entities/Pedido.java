@@ -4,12 +4,15 @@ package com.softma.pedidos.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.softma.pedidos.entities.enums.StatusPedido;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Pedido implements Serializable {
@@ -28,8 +31,11 @@ public class Pedido implements Serializable {
     @JoinColumn(name = "cliente_id")
     private Usuario cliente;
 
-    public Pedido(){
+    @OneToMany(mappedBy = "id.pedido")
+    private Set<PedidoItem> items = new HashSet<>();
 
+
+    public Pedido(){
     }
 
     public Pedido(Long id, Instant momento,StatusPedido statusPedido, Usuario cliente) {
@@ -70,6 +76,10 @@ public class Pedido implements Serializable {
 
     public void setCliente(Usuario cliente) {
         this.cliente = cliente;
+    }
+
+    public Set<PedidoItem> getItems(){
+        return items;
     }
 
     @Override

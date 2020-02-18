@@ -1,15 +1,9 @@
 package com.softma.pedidos.config;
 
 
-import com.softma.pedidos.entities.Categoria;
-import com.softma.pedidos.entities.Pedido;
-import com.softma.pedidos.entities.Produto;
-import com.softma.pedidos.entities.Usuario;
+import com.softma.pedidos.entities.*;
 import com.softma.pedidos.entities.enums.StatusPedido;
-import com.softma.pedidos.repository.CategoriaRepository;
-import com.softma.pedidos.repository.PedidoRepository;
-import com.softma.pedidos.repository.ProdutoRepository;
-import com.softma.pedidos.repository.UsuarioRepository;
+import com.softma.pedidos.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -33,6 +27,9 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired
     private ProdutoRepository produtoRepository;
+
+    @Autowired
+    private PedidoItemRepository pedidoItemRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -69,6 +66,14 @@ public class TestConfig implements CommandLineRunner {
 
         usuarioRepository.saveAll(Arrays.asList(u1, u2));
         pedidoRepository.saveAll(Arrays.asList(p1, p2, p3));
+
+        PedidoItem pi1 = new PedidoItem(p1, po1, 2, po1.getPreco());
+        PedidoItem pi2 = new PedidoItem(p1, po3, 1, po3.getPreco());
+        PedidoItem pi3 = new PedidoItem(p2, po3, 2, po3.getPreco());
+        PedidoItem pi4 = new PedidoItem(p3, po5, 2, po5.getPreco());
+
+        pedidoItemRepository.saveAll(Arrays.asList(pi1,pi2,pi3,pi4));
+
 
 
     }

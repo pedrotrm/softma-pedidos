@@ -1,5 +1,6 @@
 package com.softma.pedidos.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.softma.pedidos.entities.pk.PedidoItemPK;
 
 import javax.persistence.EmbeddedId;
@@ -15,7 +16,7 @@ public class PedidoItem implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @EmbeddedId
-    private PedidoItemPK id;
+    private PedidoItemPK id = new PedidoItemPK();
 
     private Integer quantidade;
     private Double preco;
@@ -30,7 +31,7 @@ public class PedidoItem implements Serializable {
         this.quantidade = quantidade;
         this.preco = preco;
     }
-
+    @JsonIgnore
     public Pedido getPedido(){
         return id.getPedido();
     }
