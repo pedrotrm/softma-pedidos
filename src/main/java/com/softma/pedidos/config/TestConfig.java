@@ -1,9 +1,11 @@
 package com.softma.pedidos.config;
 
 
+import com.softma.pedidos.entities.Categoria;
 import com.softma.pedidos.entities.Pedido;
 import com.softma.pedidos.entities.Usuario;
 import com.softma.pedidos.entities.enums.StatusPedido;
+import com.softma.pedidos.repository.CategoriaRepository;
 import com.softma.pedidos.repository.PedidoRepository;
 import com.softma.pedidos.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private PedidoRepository pedidoRepository;
 
+    @Autowired
+    private CategoriaRepository categoriaRepository;
+
     @Override
     public void run(String... args) throws Exception {
 
@@ -34,8 +39,13 @@ public class TestConfig implements CommandLineRunner {
         Pedido p2 = new Pedido(null, Instant.parse("2019-07-21T03:42:10Z"), StatusPedido.AGUARDANDO_PAGAMENTO,u2 );
         Pedido p3 = new Pedido(null, Instant.parse("2019-07-22T15:21:22Z"),StatusPedido.AGUARDANDO_PAGAMENTO,u1);
 
+        Categoria cat1 = new Categoria(null, "Eletronicos");
+        Categoria cat2 = new Categoria(null, "Livros");
+        Categoria cat3 = new Categoria(null, "Computadores");
+
         usuarioRepository.saveAll(Arrays.asList(u1, u2));
         pedidoRepository.saveAll(Arrays.asList(p1, p2, p3));
+        categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
 
     }
 }
