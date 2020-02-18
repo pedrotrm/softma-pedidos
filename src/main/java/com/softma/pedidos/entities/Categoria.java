@@ -1,8 +1,12 @@
 package com.softma.pedidos.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "categoria")
@@ -12,6 +16,10 @@ public class Categoria implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    @JsonIgnore 
+    @ManyToMany(mappedBy = "categorias")
+    private Set<Produto> produtos = new HashSet<>();
 
     public Categoria() {
     }
@@ -35,6 +43,10 @@ public class Categoria implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Produto> getProdutos() {
+        return produtos;
     }
 
     @Override

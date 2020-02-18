@@ -37,12 +37,6 @@ public class TestConfig implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        Usuario u1 = new Usuario(null, "Maria Brown", "maria@gmail.com", "988888888", "123456");
-        Usuario u2 = new Usuario(null, "Alex Green", "alex@gmail.com", "977777777", "123456");
-
-        Pedido p1 = new Pedido(null, Instant.parse("2019-06-20T19:53:07Z"), StatusPedido.PAGO, u1);
-        Pedido p2 = new Pedido(null, Instant.parse("2019-07-21T03:42:10Z"), StatusPedido.AGUARDANDO_PAGAMENTO,u2 );
-        Pedido p3 = new Pedido(null, Instant.parse("2019-07-22T15:21:22Z"),StatusPedido.AGUARDANDO_PAGAMENTO,u1);
 
         Categoria cat1 = new Categoria(null, "Eletronicos");
         Categoria cat2 = new Categoria(null, "Livros");
@@ -54,10 +48,28 @@ public class TestConfig implements CommandLineRunner {
         Produto po4 = new Produto(null, "PC Gamer", "Donec aliquet odio ac rhoncus cursus.", 1200.0, "");
         Produto po5 = new Produto(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, "");
 
-        usuarioRepository.saveAll(Arrays.asList(u1, u2));
-        pedidoRepository.saveAll(Arrays.asList(p1, p2, p3));
         categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
         produtoRepository.saveAll(Arrays.asList(po1, po2,po3,po4,po5));
+
+        po1.getCategorias().add(cat2);
+        po2.getCategorias().add(cat1);
+        po2.getCategorias().add(cat3);
+        po3.getCategorias().add(cat3);
+        po4.getCategorias().add(cat3);
+        po5.getCategorias().add(cat2);
+
+        produtoRepository.saveAll(Arrays.asList(po1,po2,po3,po4,po5));
+
+        Usuario u1 = new Usuario(null, "Maria Brown", "maria@gmail.com", "988888888", "123456");
+        Usuario u2 = new Usuario(null, "Alex Green", "alex@gmail.com", "977777777", "123456");
+
+        Pedido p1 = new Pedido(null, Instant.parse("2019-06-20T19:53:07Z"), StatusPedido.PAGO, u1);
+        Pedido p2 = new Pedido(null, Instant.parse("2019-07-21T03:42:10Z"), StatusPedido.AGUARDANDO_PAGAMENTO,u2 );
+        Pedido p3 = new Pedido(null, Instant.parse("2019-07-22T15:21:22Z"),StatusPedido.AGUARDANDO_PAGAMENTO,u1);
+
+        usuarioRepository.saveAll(Arrays.asList(u1, u2));
+        pedidoRepository.saveAll(Arrays.asList(p1, p2, p3));
+
 
     }
 }
