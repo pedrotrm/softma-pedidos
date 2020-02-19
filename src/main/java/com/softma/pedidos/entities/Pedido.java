@@ -4,7 +4,6 @@ package com.softma.pedidos.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.softma.pedidos.entities.enums.StatusPedido;
 
 import javax.persistence.*;
@@ -91,6 +90,14 @@ public class Pedido implements Serializable {
 
     public Set<PedidoItem> getItems(){
         return items;
+    }
+
+    public Double getTotal(){
+        double sum = 0.0;
+        for (PedidoItem x : items){
+            sum += x.getSubTotal();
+        }
+        return sum;
     }
 
     @Override

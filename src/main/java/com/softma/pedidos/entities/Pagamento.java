@@ -1,5 +1,7 @@
 package com.softma.pedidos.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
@@ -14,6 +16,7 @@ public class Pagamento implements Serializable {
     private Long id;
     private Instant momento;
 
+    @JsonIgnore
     @OneToOne
     @MapsId
     private Pedido pedido;

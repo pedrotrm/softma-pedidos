@@ -74,5 +74,8 @@ public class PedidoItem implements Serializable {
         return Objects.hash(id);
     }
 
+     public Double getSubTotal(){
+         return preco*quantidade;
+     }
 
 }
