@@ -2,8 +2,11 @@ package com.softma.pedidos.services;
 
 import com.softma.pedidos.entities.Usuario;
 import com.softma.pedidos.repository.UsuarioRepository;
+import com.softma.pedidos.services.exception.DatabaseException;
 import com.softma.pedidos.services.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,8 +31,14 @@ public class UsuarioService {
         return repository.save(obj);
     }
 
-    public void deletar(Long id ){
-        repository.deleteById(id);
+    public void deletar(Long id ) {
+        try {
+            repository.deleteById(id);
+        }   catch (EmptyResultDataAccessException e){
+                throw new ResourceNotFoundException(id);
+        }   catch (DataIntegrityViolationException e){
+                throw new DatabaseException(e.getMessage());
+        }
     }
 
     public Usuario atualizar(Long id, Usuario obj){
