@@ -33,4 +33,17 @@ public class UsuarioService {
         repository.deleteById(id);
     }
 
+    public Usuario atualizar(Long id, Usuario obj){
+        Usuario entidade = repository.getOne(id);
+        atualizarDado(entidade, obj);
+        return repository.save(entidade);
+    }
+
+    private void atualizarDado(Usuario entidade, Usuario obj){
+        entidade.setName(obj.getName());
+        entidade.setEmail(obj.getEmail());
+        entidade.setTelefone(obj.getTelefone());
+
+    }
+
 }
